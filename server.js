@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-mongoose.connect('mongodb+srv://arshia:123@cluster0.mongodb.net/social_backend_database?retryWrites=true&w=majority', {
+mongoose.connect('mongodb://arshia:123@cluster0-shard-00-00.wdhup.mongodb.net:27017,cluster0-shard-00-01.wdhup.mongodb.net:27017,cluster0-shard-00-02.wdhup.mongodb.net:27017/?replicaSet=atlas-rvdu2s-shard-0&ssl=true&authSource=admin&retryWrites=true&w=majority&appName=Cluster0', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
