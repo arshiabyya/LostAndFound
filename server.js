@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-mongoose.connect('mongodb://localhost:27017/social_backend_database', {
+mongoose.connect('mongodb+srv://arshia:123@cluster0.mongodb.net/social_backend_database?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
