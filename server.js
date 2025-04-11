@@ -36,7 +36,12 @@ const postSchema = new mongoose.Schema({
     content: String,
     file: String,
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    comments: [{ text: String }],
+    comments: [
+        {
+          userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+          text: String,
+        }
+      ]
 });
 
 // const Post = mongoose.model('Post', postSchema);
@@ -100,22 +105,34 @@ app.post('/api/posts/like/:postId', async (req, res) => {
 app.post('/api/posts/comment/:postId', async (req, res) => {
     try {
         const postId = req.params.postId;
-        const { text } = req.body;
+        const { userId, text } = req.body;
+
         const post = await Post.findById(postId);
 
         if (!post) {
             return res.status(404).json({ error: 'Post not found' });
         }
 
-        post.comments.push({ text });
+        // Check if this user already commented
+        const alreadyCommented = post.comments.some(
+            (comment) => comment.userId.toString() === userId
+        );
+
+        if (alreadyCommented) {
+            return res.status(400).json({ error: 'You have already commented on this post' });
+        }
+
+        // Add the comment
+        post.comments.push({ userId, text });
         await post.save();
 
         res.json(post);
     } catch (error) {
-        console.error('Error adding comment:', error);
+        console.error('Error commenting on post:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 
 
 
