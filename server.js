@@ -35,13 +35,8 @@ const postSchema = new mongoose.Schema({
     title: String,
     content: String,
     file: String,
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    comments: [
-        {
-          userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-          text: String,
-        }
-      ]
+    likes: { type: Number, default: 0 },
+    comments: [{ text: String }],
 });
 
 // const Post = mongoose.model('Post', postSchema);
@@ -78,21 +73,13 @@ app.post('/api/posts', upload.single('file'), async (req, res) => {
 app.post('/api/posts/like/:postId', async (req, res) => {
     try {
         const postId = req.params.postId;
-        const userId = req.body.userId; // make sure to send this in the request!
-
         const post = await Post.findById(postId);
 
         if (!post) {
             return res.status(404).json({ error: 'Post not found' });
         }
 
-        // Check if user already liked the post
-        if (post.likes.includes(userId)) {
-            return res.status(400).json({ error: 'You already liked this post' });
-        }
-
-        // Add userId to the likes array
-        post.likes.push(userId);
+        post.likes += 1;
         await post.save();
 
         res.json(post);
@@ -105,34 +92,22 @@ app.post('/api/posts/like/:postId', async (req, res) => {
 app.post('/api/posts/comment/:postId', async (req, res) => {
     try {
         const postId = req.params.postId;
-        const { userId, text } = req.body;
-
+        const { text } = req.body;
         const post = await Post.findById(postId);
 
         if (!post) {
             return res.status(404).json({ error: 'Post not found' });
         }
 
-        // Check if this user already commented
-        const alreadyCommented = post.comments.some(
-            (comment) => comment.userId.toString() === userId
-        );
-
-        if (alreadyCommented) {
-            return res.status(400).json({ error: 'You have already commented on this post' });
-        }
-
-        // Add the comment
-        post.comments.push({ userId, text });
+        post.comments.push({ text });
         await post.save();
 
         res.json(post);
     } catch (error) {
-        console.error('Error commenting on post:', error);
+        console.error('Error adding comment:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
 
 
 
