@@ -35,7 +35,7 @@ const postSchema = new mongoose.Schema({
     title: String,
     content: String,
     file: String,
-    likes: { type: Number, default: 0 },
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     comments: [{ text: String }],
 });
 
@@ -73,13 +73,21 @@ app.post('/api/posts', upload.single('file'), async (req, res) => {
 app.post('/api/posts/like/:postId', async (req, res) => {
     try {
         const postId = req.params.postId;
+        const userId = req.body.userId; // make sure to send this in the request!
+
         const post = await Post.findById(postId);
 
         if (!post) {
             return res.status(404).json({ error: 'Post not found' });
         }
 
-        post.likes += 1;
+        // Check if user already liked the post
+        if (post.likes.includes(userId)) {
+            return res.status(400).json({ error: 'You already liked this post' });
+        }
+
+        // Add userId to the likes array
+        post.likes.push(userId);
         await post.save();
 
         res.json(post);
