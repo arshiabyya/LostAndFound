@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -11,7 +12,19 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(bodyParser.json());
 app.use(express.json()); // important!
+const mongoURI = 'mongodb+srv://User:123@cluster0.uen4yeh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+
+const connection = mongoose.connection;
+connection.once('open', () => {
+    console.log('MongoDB database connection established successfully');
+});
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -23,13 +36,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
-mongoose.connect('mongodb://arshia:123@cluster0-shard-00-00.wdhup.mongodb.net:27017,cluster0-shard-00-01.wdhup.mongodb.net:27017,cluster0-shard-00-02.wdhup.mongodb.net:27017/?replicaSet=atlas-rvdu2s-shard-0&ssl=true&authSource=admin&retryWrites=true&w=majority&appName=Cluster0', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-.then(() => console.log('Connected to MongoDB'))
-.catch((err) => console.error('MongoDB connection error:', err));
 
 const postSchema = new mongoose.Schema({
     title: String,
