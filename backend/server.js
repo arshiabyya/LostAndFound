@@ -43,15 +43,16 @@ const postSchema = new mongoose.Schema({
     file: String,
     likes: { type: Number, default: 0 },
     comments: [{ text: String }],
-});
+}, { timestamps: true }); // Automatically adds `createdAt` and `updatedAt` fields
 
-// const Post = mongoose.model('Post', postSchema);
+// const Post = mongoose.model('Post', postSchema); // Uncomment this line
 
 app.use(bodyParser.json());
 
 app.get('/api/posts', async (req, res) => {
     try {
-        const posts = await Post.find();
+        // Fetch posts sorted by creation time in descending order
+        const posts = await Post.find().sort({ createdAt: -1 });
         res.json(posts);
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
