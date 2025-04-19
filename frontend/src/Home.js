@@ -92,18 +92,14 @@ function Home() {
 								{post.file.includes(".mp4") ? (
 									<video width="320" height="240" controls>
 										<source
-											src={
-										`http://localhost:5000/uploads/${post.file}`
-											}
+											src={`http://localhost:5000/uploads/${post.file}`}
 											type="video/mp4"
 										/>
 										Your browser does not support the video tag.
 									</video>
 								) : (
 									<img
-										src={
-										`http://localhost:5000/uploads/${post.file}`
-										}
+										src={`http://localhost:5000/uploads/${post.file}`}
 										alt="Post Media"
 									/>
 								)}
