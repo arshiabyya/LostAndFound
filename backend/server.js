@@ -43,9 +43,8 @@ const postSchema = new mongoose.Schema({
     file: String,
     likes: { type: Number, default: 0 },
     comments: [{ text: String }],
-}, { timestamps: true }); // Automatically adds `createdAt` and `updatedAt` fields
-
-// const Post = mongoose.model('Post', postSchema); // Uncomment this line
+    category: { type: String, required: true }, // Add category field
+}, { timestamps: true });
 
 app.use(bodyParser.json());
 
@@ -61,14 +60,14 @@ app.get('/api/posts', async (req, res) => {
 
 app.post('/api/posts', upload.single('file'), async (req, res) => {
     try {
-        const { title, content } = req.body;
+        const { title, content, userId, category } = req.body; // Retrieve category from the request body
         const file = req.file ? req.file.filename : undefined;
 
-        if (!title || !content) {
-            return res.status(400).json({ error: 'Title and content are required fields' });
+        if (!title || !content || !userId || !category) {
+            return res.status(400).json({ error: 'Title, content, userId, and category are required fields' });
         }
 
-        const post = new Post({ title, content, file });
+        const post = new Post({ title, content, file, createdBy: userId, category });
         await post.save();
         res.status(201).json(post);
     } catch (error) {
@@ -112,6 +111,25 @@ app.post('/api/posts/comment/:postId', async (req, res) => {
         res.json(post);
     } catch (error) {
         console.error('Error adding comment:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+app.delete('/api/posts/:postId', async (req, res) => {
+    console.log(`Received DELETE request for post ID: ${req.params.postId}`); // Debug log
+    try {
+        const postId = req.params.postId;
+
+        // Find and delete the post by ID
+        const post = await Post.findByIdAndDelete(postId);
+
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        res.status(200).json({ message: 'Post deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting post:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });

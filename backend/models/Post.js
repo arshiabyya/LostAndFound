@@ -9,6 +9,7 @@ const postSchema = new mongoose.Schema({
     file: String,
     likes: { type: Number, default: 0 },
     comments: [{ text: String }],
-}, { timestamps: true }); // Automatically adds `createdAt` and `updatedAt` fields
+    category: { type: String, required: true }, // Ensure this field exists
+}, { timestamps: true });
 
 module.exports = mongoose.model('Post', postSchema);
