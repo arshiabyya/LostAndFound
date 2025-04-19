@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+localStorage.setItem('userId', '1234567890abcdef12345678'); // Example userId
 
 function Home() {
 	const [commentInput, setCommentInput] = useState("");
@@ -13,6 +14,8 @@ function Home() {
 			.then((response) => setPosts(response.data))
 			.catch((error) => console.error("Error fetching posts:", error));
 	}, []);
+
+	
 
 	const handleLike = (postId) => {
 		axios
@@ -40,6 +43,20 @@ function Home() {
 			.catch((error) => console.error("Error adding comment:", error));
 	};
 
+	const deletePost = (postId) => {
+		const userId = localStorage.getItem('userId'); // Retrieve userId from local storage
+		console.log(`Attempting to delete post with ID: ${postId} by user: ${userId}`); // Debug log
+	
+		axios.delete(`http://localhost:5000/api/posts/${postId}`, {
+			data: { userId }, // Send userId in the request body
+		})
+		.then(() => {
+			console.log(`Post with ID: ${postId} deleted successfully`);
+			setPosts(posts.filter((post) => post._id !== postId)); // Remove the post from the UI
+		})
+		.catch((error) => console.error('Error deleting post:', error));
+	};
+
 	return (
 		<div className="home">
 			<h2>Recent Posts</h2>
@@ -47,6 +64,7 @@ function Home() {
 				<div key={post._id} className="post">
 					<h3>{post.title}</h3>
 					<p>{post.content}</p>
+					<button onClick={() => deletePost(post._id)}>Delete</button>
 					{post.file && (
 						<div>
 							{post.file.includes(".mp4") ? (
