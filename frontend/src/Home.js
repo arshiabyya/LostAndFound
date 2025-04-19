@@ -36,6 +36,9 @@ function Home() {
 					post._id === postId ? response.data : post
 				);
 				setPosts(updatedPosts);
+
+				//This should clear the input after the comment is posted. 
+				setCommentInput('');  
 			})
 			.catch((error) => console.error("Error adding comment:", error));
 	};
@@ -82,6 +85,7 @@ function Home() {
 						type="text"
 						placeholder="Add a comment"
 						className="comment-input"
+						value={commentInput}
 						onChange={(e) => setCommentInput(e.target.value)}
 					/>
 					<button
