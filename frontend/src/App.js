@@ -1,5 +1,3 @@
-// App.js
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './Home';
@@ -13,7 +11,7 @@ function App() {
 				<nav>
 					<ul>
 						<li className="logo">
-            				<Link to="/">Lost and Found</Link> {/* Add this as the logo */}
+            				<Link to="/">Lost and Found</Link> {}
         				</li>
 						<li>
 							<Link to="/">Home</Link>

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Post = require('./models/Post'); // adjust if your path is different
+const Post = require('./models/Post');
 
 mongoose.connect('mongodb://localhost:27017/yourDatabaseName', {
     useNewUrlParser: true,
@@ -13,7 +13,7 @@ const test = async () => {
         const p = new Post({ title: 'Test', content: 'This is a test' });
         await p.save();
         console.log('Saved post:', p);
-        mongoose.connection.close(); // close connection after done
+        mongoose.connection.close();
     } catch (err) {
         console.error('Error saving post:', err);
         mongoose.connection.close();

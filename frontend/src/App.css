@@ -30,7 +30,7 @@ nav ul {
   padding: 0;
   display: flex;
   align-items: center;
-  background-color: #fcb7cd; /* Optional: Add a background color */
+  background-color: #fcb7cd;
   padding: 10px 20px;
 }
 
@@ -39,14 +39,14 @@ nav li {
 }
 
 nav .logo a {
-  font-size: 24px; /* Make the logo text larger */
+  font-size: 24px;
   font-weight: bold;
-  color: #920743; /* Highlight the logo text */
+  color: #920743;
   text-decoration: none;
 }
 
 nav .logo a:hover {
-  color: #a3004c; /* Change color on hover */
+  color: #a3004c;
 }
 
 nav a {
@@ -59,16 +59,14 @@ nav a:hover {
   color: #a3004c;
 }
 
-/* MAIN LAYOUT (sidebar removed) */
 .main-content {
   padding: 40px 20px;
 }
 
-/* HOME GRID (spaced vertically) */
 .home {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 40px; /* Adjust this value to control spacing between posts */
+  gap: 40px;
   padding: 30px 10px;
 }
 
@@ -79,13 +77,12 @@ nav a:hover {
   font-size: 28px;
 }
 
-/* POST CARD */
 .post {
   background-color: white;
   border-radius: 20px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   padding: 40px;
-  margin-bottom: 40px; /* Add margin to create space between posts */
+  margin-bottom: 40px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
@@ -105,7 +102,6 @@ nav a:hover {
   text-transform: uppercase;
 }
 
-/* CATEGORY CHIP */
 .category-chip {
   display: inline-block;
   background-color: #ffdbe7;
@@ -132,10 +128,9 @@ nav a:hover {
 }
 
 .post-container {
-  padding: 20px; /* Add padding around the entire list of posts */
+  padding: 20px;
 }
 
-/* FALLBACK MEDIA */
 .post .media-fallback {
   width: 100%;
   height: 150px;
@@ -150,7 +145,6 @@ nav a:hover {
   font-weight: bold;
 }
 
-/* HOVER TOOLTIP */
 .post:hover::after {
   content: "Click to expand";
   position: absolute;
@@ -164,7 +158,6 @@ nav a:hover {
   opacity: 0.9;
 }
 
-/* COMMENTS */
 .post ul {
   list-style: none;
   padding: 0;
@@ -193,7 +186,6 @@ nav a:hover {
   font-size: 14px;
 }
 
-/* BUTTONS */
 .comment-button,
 .post button {
   background-color: #fcb7cd;
@@ -212,7 +204,6 @@ nav a:hover {
   background-color: #ffacc6;
 }
 
-/* CREATE POST */
 .create-post {
   max-width: 600px;
   margin: 40px auto;
@@ -262,25 +253,25 @@ nav a:hover {
 }
 
 .category-filter {
-  padding: 8px 16px; /* Add padding to make it look like a button */
-  font-size: 16px; /* Adjust font size for better readability */
-  border: 1px solid #ddd; /* Add a border */
-  border-radius: 20px; /* Make it rounded like a button */
-  background-color: #fcb7cd; /* Button-like background color */
-  color: #920743; /* Text color */
-  cursor: pointer; /* Pointer cursor for interactivity */
+  padding: 8px 16px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background-color: #fcb7cd;
+  color: #920743;
+  cursor: pointer;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  width: auto; /* Prevent it from spanning the whole screen */
-  text-align: center; /* Center-align the text */
+  width: auto;
+  text-align: center;
 }
 
 .category-filter:hover {
-  background-color: #ffacc6; /* Change background color on hover */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow on hover */
+  background-color: #ffacc6;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 select {
-  font-size: 18px; /* Increase the font size */
+  font-size: 18px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
