@@ -4,13 +4,14 @@
 body {
   font-family: 'Nunito', sans-serif;
   margin: 0;
-  background-color: #fff0f5;
   color: #333;
+  background: linear-gradient(to right, #ffe4ec, #ffeaf7);
+  min-height: 100vh;
 }
 
 /* ========== NAVIGATION ========== */
 .app {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -45,16 +46,38 @@ nav a:hover {
   color: #a3004c;
 }
 
+/* ========== LAYOUT CONTAINER ========== */
+.main-content {
+  display: flex;
+  gap: 30px;
+  padding: 40px 20px;
+}
+
+/* ========== DROPDOWN AREA / FILTERS ========== */
+.sidebar {
+  width: 200px;
+  padding: 20px;
+  background-color: #ffe8f3;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  height: fit-content;
+}
+
+.sidebar select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
 /* ========== HOME PAGE ========== */
 .home {
-  padding: 30px;
+  flex: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-  background-color: #ffecf2;
-  border-radius: 20px;
-  margin: 30px auto;
-  max-width: 1000px;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 30px;
+  padding: 10px;
 }
 
 .home h2 {
@@ -69,7 +92,7 @@ nav a:hover {
   background-color: white;
   border-radius: 20px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  padding: 16px;
+  padding: 20px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
@@ -85,6 +108,7 @@ nav a:hover {
   color: #a3004c;
   font-size: 20px;
   margin-bottom: 10px;
+  text-transform: uppercase;
 }
 
 .post p {
