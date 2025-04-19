@@ -41,11 +41,12 @@ const postSchema = new mongoose.Schema({
     title: String,
     content: String,
     file: String,
+    username: String,
     likes: { type: Number, default: 0 },
     comments: [{ text: String }],
 }, { timestamps: true }); // Automatically adds `createdAt` and `updatedAt` fields
 
-// const Post = mongoose.model('Post', postSchema); // Uncomment this line
+//const Post = mongoose.model('Post', postSchema); //Comment out this line if it causes issues.
 
 app.use(bodyParser.json());
 
@@ -61,14 +62,15 @@ app.get('/api/posts', async (req, res) => {
 
 app.post('/api/posts', upload.single('file'), async (req, res) => {
     try {
-        const { title, content } = req.body;
+        const { title, content, username } = req.body;
         const file = req.file ? req.file.filename : undefined;
+
 
         if (!title || !content) {
             return res.status(400).json({ error: 'Title and content are required fields' });
         }
 
-        const post = new Post({ title, content, file });
+        const post = new Post({ title, content, file, username });
         await post.save();
         res.status(201).json(post);
     } catch (error) {

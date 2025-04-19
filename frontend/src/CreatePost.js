@@ -7,6 +7,8 @@ function CreatePost() {
 		title: "",
 		content: "",
 		file: null,
+		//added below
+		username: "",
 	});
 
 	const handleInputChange = (event) => {
@@ -23,11 +25,14 @@ function CreatePost() {
 		formData.append("title", newPost.title);
 		formData.append("content", newPost.content);
 		formData.append("file", newPost.file);
+		//Added this to put a place where people can input their username
+		formData.append("username", newPost.username);
 
 		axios
 			.post("http://localhost:5000/api/posts", formData)
 			.then((response) => {
-				setNewPost({ title: "", content: "", file: null });
+				//added username to set in line below
+				setNewPost({ title: "", content: "", file: null, username:"" });
 			})
 			.catch((error) => console.error("Error creating post:", error));
 	};
@@ -46,6 +51,12 @@ function CreatePost() {
 				name="content"
 				placeholder="Content"
 				value={newPost.content}
+				onChange={handleInputChange}
+			></textarea>
+			<textarea
+				name = "username"
+				placeholder = "Username"
+				value = {newPost.username}
 				onChange={handleInputChange}
 			></textarea>
 			<input type="file" name="file" onChange={handleFileChange} />

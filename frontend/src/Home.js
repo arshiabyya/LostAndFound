@@ -80,7 +80,7 @@ function Home() {
 							<li key={index}>{comment.text}</li>
 						))}
 					</ul>
-
+					<p>Posted by: {post.username ||"Anonymous"}</p>
 					<input
 						type="text"
 						placeholder="Add a comment"
