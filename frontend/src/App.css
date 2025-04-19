@@ -21,7 +21,7 @@ nav {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  border-bottom: 3px solid #ffb6c1;
+  border-bottom: 3px solid #ffdbb6;
 }
 
 nav ul {
@@ -46,43 +46,21 @@ nav a:hover {
   color: #a3004c;
 }
 
-/* LAYOUT */
+/* MAIN LAYOUT (sidebar removed) */
 .main-content {
-  display: flex;
-  gap: 30px;
   padding: 40px 20px;
 }
 
-/* SIDEBAR */
-.sidebar {
-  width: 200px;
-  padding: 20px;
-  background-color: #fff0f5;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  height: fit-content;
-}
-
-.sidebar select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-}
-
-/* HOME GRID */
+/* HOME GRID (spaced vertically) */
 .home {
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-  padding: 30px;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px 60px; /* 40px vertical gap, 60px horizontal */
+  padding: 30px 10px;
 }
 
 .home h2 {
-  width: 100%;
+  grid-column: 1 / -1;
   color: #920743;
   margin-bottom: 20px;
   font-size: 28px;
@@ -94,13 +72,11 @@ nav a:hover {
   border-radius: 20px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 280px;
-  min-height: 300px;
-  position: relative;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 }
 
 .post:hover {
@@ -128,7 +104,6 @@ nav a:hover {
   align-self: flex-start;
 }
 
-/* POST CONTENT */
 .post p {
   color: #333;
   font-size: 16px;
@@ -142,7 +117,7 @@ nav a:hover {
   margin: 10px 0;
 }
 
-/* FALLBACK MEDIA DISPLAY */
+/* FALLBACK MEDIA */
 .post .media-fallback {
   width: 100%;
   height: 150px;
@@ -171,7 +146,7 @@ nav a:hover {
   opacity: 0.9;
 }
 
-/* LISTS & COMMENTS */
+/* COMMENTS */
 .post ul {
   list-style: none;
   padding: 0;
