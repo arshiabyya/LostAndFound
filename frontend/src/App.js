@@ -1,5 +1,3 @@
-// App.js
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './Home';
@@ -12,6 +10,9 @@ function App() {
 			<div className="app">
 				<nav>
 					<ul>
+						<li className="logo">
+            				<Link to="/">Lost and Found</Link> {}
+        				</li>
 						<li>
 							<Link to="/">Home</Link>
 						</li>

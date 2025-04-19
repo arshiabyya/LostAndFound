@@ -73,7 +73,11 @@ function Home() {
 	return (
 		<div className="home">
 			<h2>Recent Posts</h2>
-			<select onChange={handleFilterChange} value={filterCategory}>
+			<select
+				onChange={handleFilterChange}
+				value={filterCategory}
+				className="filter-container"
+				>
 				<option value="">All Categories</option>
 				<option value="Electronics">Electronics</option>
 				<option value="Sports">Sports</option>

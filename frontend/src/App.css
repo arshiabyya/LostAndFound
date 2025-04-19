@@ -1,15 +1,15 @@
-/* Import soft rounded font */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
 
 body {
   font-family: 'Nunito', sans-serif;
   margin: 0;
   color: #333;
-  background: linear-gradient(to right, #ffe4ec, #ffeaf7);
+  background: linear-gradient(to bottom right, #ffe4ec, #ffd6b2, #fff1e0);
   min-height: 100vh;
+  background-attachment: fixed;
 }
 
-/* ========== NAVIGATION ========== */
+/* NAVIGATION */
 .app {
   max-width: 1200px;
   margin: 0 auto;
@@ -21,7 +21,7 @@ nav {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  border-bottom: 3px solid #ffbee3;
+  border-bottom: 3px solid #ffdbb6;
 }
 
 nav ul {
@@ -29,55 +29,45 @@ nav ul {
   margin: 0;
   padding: 0;
   display: flex;
+  align-items: center;
+  background-color: #fcb7cd;
+  padding: 10px 20px;
 }
 
 nav li {
   margin-right: 20px;
 }
 
+nav .logo a {
+  font-size: 24px;
+  font-weight: bold;
+  color: #920743;
+  text-decoration: none;
+}
+
+nav .logo a:hover {
+  color: #a3004c;
+}
+
 nav a {
   text-decoration: none;
-  color: #920743;
-  font-weight: bold;
-  font-size: 24px;
+  color: #333;
+  font-size: 16px;
 }
 
 nav a:hover {
   color: #a3004c;
 }
 
-/* ========== LAYOUT CONTAINER ========== */
 .main-content {
-  display: flex;
-  gap: 30px;
   padding: 40px 20px;
 }
 
-/* ========== DROPDOWN AREA / FILTERS ========== */
-.sidebar {
-  width: 200px;
-  padding: 20px;
-  background-color: #ffe8f3;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  height: fit-content;
-}
-
-.sidebar select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-}
-
-/* ========== HOME PAGE ========== */
 .home {
-  flex: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: 30px;
-  padding: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  padding: 30px 10px;
 }
 
 .home h2 {
@@ -87,16 +77,17 @@ nav a:hover {
   font-size: 28px;
 }
 
-/* ========== POST CARD ========== */
 .post {
   background-color: white;
   border-radius: 20px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 40px;
+  margin-bottom: 40px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 }
 
 .post:hover {
@@ -109,6 +100,18 @@ nav a:hover {
   font-size: 20px;
   margin-bottom: 10px;
   text-transform: uppercase;
+}
+
+.category-chip {
+  display: inline-block;
+  background-color: #ffdbe7;
+  color: #d1426a;
+  padding: 5px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 5px 0;
+  align-self: flex-start;
 }
 
 .post p {
@@ -124,12 +127,35 @@ nav a:hover {
   margin: 10px 0;
 }
 
-.post-footer {
-  margin-top: auto;
+.post-container {
+  padding: 20px;
+}
+
+.post .media-fallback {
+  width: 100%;
+  height: 150px;
+  background-color: #ffeaf1;
+  border: 2px dashed #ffb6c1;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding-top: 10px;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 18px;
+  color: #d1426a;
+  font-weight: bold;
+}
+
+.post:hover::after {
+  content: "Click to expand";
+  position: absolute;
+  top: -30px;
+  left: 10px;
+  background-color: #a3004c;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  opacity: 0.9;
 }
 
 .post ul {
@@ -143,7 +169,14 @@ nav a:hover {
   font-size: 14px;
 }
 
-/* ========== COMMENT + BUTTONS ========== */
+.post-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+}
+
 .comment-input {
   margin-top: 10px;
   padding: 8px;
@@ -155,7 +188,7 @@ nav a:hover {
 
 .comment-button,
 .post button {
-  background-color: #ffbee3;
+  background-color: #fcb7cd;
   color: #920743;
   padding: 8px 16px;
   border: none;
@@ -168,15 +201,14 @@ nav a:hover {
 
 .comment-button:hover,
 .post button:hover {
-  background-color: #ffcfe9;
+  background-color: #ffacc6;
 }
 
-/* ========== CREATE POST ========== */
 .create-post {
   max-width: 600px;
   margin: 40px auto;
   padding: 20px;
-  border: 3px solid #ffbee3;
+  border: 3px solid #ffd1e0;
   background-color: #ffffff;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
   border-radius: 20px;
@@ -199,7 +231,7 @@ nav a:hover {
 }
 
 .create-post button {
-  background-color: #ffc2d7;
+  background-color: #fcb7cd;
   color: #a3004c;
   padding: 10px 20px;
   border: none;
@@ -211,5 +243,37 @@ nav a:hover {
 }
 
 .create-post button:hover {
-  background-color: #ffb3cf;
+  background-color: #ffacc6;
 }
+
+.filter-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.category-filter {
+  padding: 8px 16px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background-color: #fcb7cd;
+  color: #920743;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  width: auto;
+  text-align: center;
+}
+
+.category-filter:hover {
+  background-color: #ffacc6;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+select {
+  font-size: 18px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+

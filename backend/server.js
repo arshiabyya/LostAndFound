@@ -43,14 +43,13 @@ const postSchema = new mongoose.Schema({
     file: String,
     likes: { type: Number, default: 0 },
     comments: [{ text: String }],
-    category: { type: String, required: true }, // Add category field
+    category: { type: String, required: true },
 }, { timestamps: true });
 
 app.use(bodyParser.json());
 
 app.get('/api/posts', async (req, res) => {
     try {
-        // Fetch posts sorted by creation time in descending order
         const posts = await Post.find().sort({ createdAt: -1 });
         res.json(posts);
     } catch (error) {
@@ -60,7 +59,7 @@ app.get('/api/posts', async (req, res) => {
 
 app.post('/api/posts', upload.single('file'), async (req, res) => {
     try {
-        const { title, content, userId, category } = req.body; // Retrieve category from the request body
+        const { title, content, userId, category } = req.body;
         const file = req.file ? req.file.filename : undefined;
 
         if (!title || !content || !userId || !category) {
@@ -116,11 +115,10 @@ app.post('/api/posts/comment/:postId', async (req, res) => {
 });
 
 app.delete('/api/posts/:postId', async (req, res) => {
-    console.log(`Received DELETE request for post ID: ${req.params.postId}`); // Debug log
+    console.log(`Received DELETE request for post ID: ${req.params.postId}`);
     try {
         const postId = req.params.postId;
 
-        // Find and delete the post by ID
         const post = await Post.findByIdAndDelete(postId);
 
         if (!post) {
