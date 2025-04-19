@@ -5,6 +5,11 @@ function CreatePost() {
     const [newPost, setNewPost] = useState({
         title: "",
         content: "",
+		category: {
+			type: String,
+			enum: ['Electronics', 'Sports', 'School', 'Miscellaneous'],
+			required: true,
+		},
         file: null,
     });
 
@@ -23,23 +28,24 @@ function CreatePost() {
     };
 
     const handlePostSubmit = () => {
-        const userId = localStorage.getItem('userId'); // Retrieve userId from local storage
-        const formData = new FormData();
-        formData.append("title", newPost.title);
-        formData.append("content", newPost.content);
-        formData.append("userId", userId); // Include userId in the request
-        if (newPost.file) {
-            formData.append("file", newPost.file);
-        }
-
-        axios
-            .post("http://localhost:5000/api/posts", formData)
-            .then((response) => {
-                console.log("Post created successfully:", response.data);
-                setNewPost({ title: "", content: "", file: null }); // Reset the form
-            })
-            .catch((error) => console.error("Error creating post:", error));
-    };
+		const userId = localStorage.getItem('userId'); // Retrieve userId from local storage
+		const formData = new FormData();
+		formData.append("title", newPost.title);
+		formData.append("content", newPost.content);
+		formData.append("userId", userId); // Include userId in the request
+		formData.append("category", newPost.category); // Include category in the request
+		if (newPost.file) {
+			formData.append("file", newPost.file);
+		}
+	
+		axios
+			.post("http://localhost:5000/api/posts", formData)
+			.then((response) => {
+				console.log("Post created successfully:", response.data);
+				setNewPost({ title: "", content: "", file: null, category: "" }); // Reset the form
+			})
+			.catch((error) => console.error("Error creating post:", error));
+	};
 
     return (
         <div className="create-post">
@@ -57,9 +63,20 @@ function CreatePost() {
                 value={newPost.content}
                 onChange={handleInputChange}
             ></textarea>
-            <input type="file" name="file" onChange={handleFileChange} />
-            <button onClick={handlePostSubmit}>Post</button>
-        </div>
+			<select
+                name="category"
+                value={newPost.category}
+            	onChange={handleInputChange}
+        	>
+			<option value="">Select a Category</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Sports">Sports</option>
+            <option value="School">School</option>
+            <option value="Miscellaneous">Miscellaneous</option>
+        </select>
+        <input type="file" name="file" onChange={handleFileChange} />
+        <button onClick={handlePostSubmit}>Post</button>
+    </div>
     );
 }
 

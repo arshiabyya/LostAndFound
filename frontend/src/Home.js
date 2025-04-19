@@ -60,60 +60,80 @@ function Home() {
 		.catch((error) => console.error('Error deleting post:', error));
 	};
 
+	const [filterCategory, setFilterCategory] = useState("");
+
+	const handleFilterChange = (event) => {
+		setFilterCategory(event.target.value);
+	};
+
+	const filteredPosts = filterCategory
+		? posts.filter((post) => post.category === filterCategory)
+		: posts;
+
 	return (
 		<div className="home">
 			<h2>Recent Posts</h2>
-			{posts.map((post) => (
-				<div key={post._id} className="post">
-					<h3>{post.title}</h3>
-					<p>{post.content}</p>
-					<button onClick={() => deletePost(post._id)}>Delete</button>
-					{post.file && (
-						<div>
-							{post.file.includes(".mp4") ? (
-								<video width="320" height="240" controls>
-									<source
+			<select onChange={handleFilterChange} value={filterCategory}>
+				<option value="">All Categories</option>
+				<option value="Electronics">Electronics</option>
+				<option value="Sports">Sports</option>
+				<option value="School">School</option>
+				<option value="Miscellaneous">Miscellaneous</option>
+			</select>
+			<ul>
+				{filteredPosts.map((post) => (
+					<div key={post._id} className="post">
+						<h3>{post.title}</h3>
+						<p>{post.content}</p>
+						<p>Category: {post.category}</p>
+						<button onClick={() => deletePost(post._id)}>Delete</button>
+						{post.file && (
+							<div>
+								{post.file.includes(".mp4") ? (
+									<video width="320" height="240" controls>
+										<source
+											src={
+										`http://localhost:5000/uploads/${post.file}`
+											}
+											type="video/mp4"
+										/>
+										Your browser does not support the video tag.
+									</video>
+								) : (
+									<img
 										src={
-									`http://localhost:5000/uploads/${post.file}`
+										`http://localhost:5000/uploads/${post.file}`
 										}
-										type="video/mp4"
+										alt="Post Media"
 									/>
-									Your browser does not support the video tag.
-								</video>
-							) : (
-								<img
-									src={
-									`http://localhost:5000/uploads/${post.file}`
-									}
-									alt="Post Media"
-								/>
-							)}
-						</div>
-					)}
-					<p>Likes: {post.likes}</p>
-					<button onClick={() => handleLike(post._id)}>Like</button>
-					<p>Comments: {post.comments.length}</p>
-					<ul>
-						{post.comments.map((comment, index) => (
-							<li key={index}>{comment.text}</li>
-						))}
-					</ul>
+								)}
+							</div>
+						)}
+						<p>Likes: {post.likes}</p>
+						<button onClick={() => handleLike(post._id)}>Like</button>
+						<p>Comments: {post.comments.length}</p>
+						<ul>
+							{post.comments.map((comment, index) => (
+								<li key={index}>{comment.text}</li>
+							))}
+						</ul>
 
-					<input
-						type="text"
-						placeholder="Add a comment"
-						className="comment-input"
-						value={commentInput}
-						onChange={(e) => setCommentInput(e.target.value)}
-					/>
-					<button
-						onClick={() => handleAddComment(post._id, commentInput)}
-						className="comment-button"
-					>
-						Add Comment
-					</button>
-				</div>
-			))}
+						<input
+							type="text"
+							placeholder="Add a comment"
+							className="comment-input"
+							value={commentInput}
+							onChange={(e) => setCommentInput(e.target.value)}
+						/>
+						<button
+							onClick={() => handleAddComment(post._id, commentInput)}
+							className="comment-button"
+						>
+							Add Comment
+						</button>
+					</div>
+				))}
+			</ul>
 		</div>
 	);
 }
