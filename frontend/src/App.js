@@ -12,6 +12,9 @@ function App() {
 			<div className="app">
 				<nav>
 					<ul>
+						<li className="logo">
+            				<Link to="/">Lost and Found</Link> {/* Add this as the logo */}
+        				</li>
 						<li>
 							<Link to="/">Home</Link>
 						</li>

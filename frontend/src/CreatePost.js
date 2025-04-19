@@ -64,16 +64,17 @@ function CreatePost() {
                 onChange={handleInputChange}
             ></textarea>
 			<select
-                name="category"
-                value={newPost.category}
-            	onChange={handleInputChange}
-        	>
-			<option value="">Select a Category</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Sports">Sports</option>
-            <option value="School">School</option>
-            <option value="Miscellaneous">Miscellaneous</option>
-        </select>
+				name="category"
+				value={newPost.category}
+				onChange={handleInputChange}
+				className="create-category-select"
+				>
+				<option value="">Select a Category</option>
+				<option value="Electronics">Electronics</option>
+				<option value="Sports">Sports</option>
+				<option value="School">School</option>
+				<option value="Miscellaneous">Miscellaneous</option>
+			</select>
         <input type="file" name="file" onChange={handleFileChange} />
         <button onClick={handlePostSubmit}>Post</button>
     </div>
